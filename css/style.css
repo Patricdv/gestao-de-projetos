@@ -1,0 +1,43 @@
+#nav-mobile {
+	width: 240px;
+}
+
+.copyright {
+	font-size: 13px;
+	font-style: italic;
+}
+
+.pattern-position {
+	position: relative;
+	height: 100%;
+}
+
+.pattern-position main {
+	margin-bottom: 30px;
+}
+
+.pattern-position footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+}
+
+#form-usuario .fade-input {
+    display: none;
+}
+
+i.fade-input {
+    padding: 15px 20px;
+}
+
+.gender-space {
+    display: inline-block;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+#user-sub {
+    line-height: 34px;
+}
