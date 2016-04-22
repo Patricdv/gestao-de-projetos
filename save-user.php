@@ -26,7 +26,7 @@
 			$Telefone = $_POST["telefone"];
 			$Senha    = $_POST["senha"];
       
-      $sql = 'INSERT INTO "usuario" VALUES ("", "'.$Nome.'", "'.$Endereco.'", "'.$Tipo.'", "'.$Email.'", "'.$Idade.'", "'.$Sexo.'", "'.$Telefone.'", "'.$Senha.'")';
+      $sql = 'INSERT INTO usuario (Nome, Endereco, Tipo, email, idade, sexo, telefone, Senha) VALUES ("'.$Nome.'", "'.$Endereco.'", "'.$Tipo.'", "'.$Email.'", "'.$Idade.'", "'.$Sexo.'", "'.$Telefone.'", "'.$Senha.'")';
       
       $result = mysql_query($sql, $conexao);
       
