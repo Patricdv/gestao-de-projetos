@@ -41,23 +41,23 @@
             </div>
 
             <div class="fade-input input-field col s6 m6 l6">
-               <input id="phone" type="text" name="telefone" class="validate" required>
+               <input id="phone" type="tel" name="telefone" class="validate" required>
                <label for="phone" class="active">Telefone</label>
             </div>
             
             <div class="fade-input input-field col s6 m6 l6">
-               <input id="age" type="text" name="idade" class="validate" required="">
+               <input id="age" type="number" name="idade" class="validate" required="">
                <label for="idade" class="active">Idade</label>
             </div>
             
             <div class="fade-input input-field col s6 m6 l6">
-               <input id="email" type="text" name="email" class="validate" required>
+               <input id="email" type="email" name="email" class="validate" required>
                <label for="email" class="active">E-mail</label>
             </div>
 
             <div class="fade-input input-field col s6 m6 l6">
-               <input id="password" type="password" name="senha" class="validate" required>
-               <label for="password" class="active">Senha</label>
+               <input id="password" type="password" name="senha" minlength=6 class="validate" required>
+               <label for="password" class="active">Senha (min 6 caracteres)</label>
             </div>
 
             <div class="gender-space">
@@ -73,7 +73,7 @@
               </p>
             </div>
             
-						<input type="submit" name="submit" id="user-sub" class="fade-input waves-effect waves-light btn">
+						<input type="submit" name="submit" id="user-sub" value="ENVIAR" class="fade-input waves-effect waves-light btn">
 					</form>				
 				</div>
 			</div>
@@ -84,7 +84,7 @@
 	
   <script type="application/javascript" src="/gestao-de-projetos/js/jquery-2.2.2.min.js"></script>
 	<script type="application/javascript" src="/gestao-de-projetos/js/materialize.min.js"></script>
-  
+  <script type="application/javascript" src="/gestao-de-projetos/js/jquery.mask.min.js"></script>
   <script type="application/javascript">
     $(document).ready(function(){
       $("#caron").click(function() {
@@ -93,6 +93,7 @@
         } else {
           $(".fade-input").fadeOut();
         }
+      $("#phone").mask("(99) 9999-9999");
       });
    });
   </script>
