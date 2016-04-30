@@ -24,7 +24,7 @@
       $usuario = 1; 
       $vagas   = 2;
       
-      $sql = 'INSERT INTO carona (id, vagas, data, saida, origem,destino ) 
+      $sql = 'INSERT INTO carona (caroneiro, vagas, data, saida, origem, destino ) 
                   VALUES ("'.$usuario.'", "'.$vagas.'","'.$data.'", "'.$horario.'", "'.$origem.'", "'.$destino.'")';
       
       $result = mysql_query($sql, $conexao);
