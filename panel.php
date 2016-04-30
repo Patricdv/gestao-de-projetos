@@ -40,16 +40,36 @@
 			<p class="notification notification-confirm"><?php echo $_SESSION['message'] ?></p>
 		<?php unset($_SESSION['message']); } ?>
 		<main>
-			<div class="container">
-				<div class="rows">
-					<?php 
-					while($carona =  mysql_fetch_assoc($query)) {
-						echo $carona['origem'];
-						echo $carona['destino'];
-					}
-					?>
-				</div>
-			</div>
+	   		<div class="container">
+				<?php if ($query) { ?>
+					<table class="highlight">
+				    	<thead>
+				    		<tr>
+				            	<th data-field="caroneiro">Caroneiro</th>
+				            	<th data-field="vagas">Vagas</th>
+				            	<th data-field="data">Data</th>
+				            	<th data-field="saida">Saída</th>
+				            	<th data-field="origem">Origem</th>
+				            	<th data-field="destino">Destino</th>
+				        	</tr>
+				        </thead>
+				        <tbody>
+							<?php while($carona =  mysql_fetch_assoc($query)) { ?>
+								<tr>
+					           		<td><?php echo $carona['caroneiro'];?></td>
+					           		<td><?php echo $carona['vagas'];?></td>
+					           		<td><?php echo $carona['data'];?></td>
+					           		<td><?php echo $carona['saida'];?></td>
+					           		<td><?php echo $carona['origem'];?></td>
+					           		<td><?php echo $carona['destino'];?></td>
+					         	</tr>
+					        <?php } ?>  
+			        	</tbody>
+			      	</table>
+		      	<?php } else { ?>
+		      		<p>Nenhuma carona disponível!</p>	
+		      	<?php } ?>
+	      	</div>
 		</main>
 
 		<?php include 'footer.php';?>
