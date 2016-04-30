@@ -17,11 +17,15 @@
       mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
         
       //inserir dados da rota
-			$Data     = $_POST["nome"];
-			$Horario = $_POST["endereco"];
-			$Destino     = $_POST["tipo"];		
+			$data    = $_POST["data"];
+			$horario = $_POST["hora_saida"];
+			$destino = $_POST["destino"];		
+      $origem  = $_POST["origem"];
+      $usuario = 1; 
+      $vagas   = 2;
       
-      $sql = 'INSERT INTO carona (Data, HoraSaida, IdDestino) VALUES ("'.$Data.'", "'.$Horario.'", "'.$Destino.'")';
+      $sql = 'INSERT INTO carona (id, vagas, data, saida, origem,destino ) 
+                  VALUES ("'.$usuario.'", "'.$vagas.'","'.$data.'", "'.$horario.'", "'.$origem.'", "'.$destino.'")';
       
       $result = mysql_query($sql, $conexao);
       

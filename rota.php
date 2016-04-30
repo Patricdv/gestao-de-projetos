@@ -19,18 +19,28 @@
 			<div class="container">
 				<div class="row">
 					
-	<form id="form-rota" method="post" action="/gestao-de-projetos/save-rota.php">
-                      
-            <div class="input-field col s6 m6 l6">
-			         <input id="data" name="data" type="date" class="validate" >
-			         <label for="data" class="active">Data</label>
-		        </div>
-            
-            <div class="input-field col s6 m6 l6">
-               <input id="hora_saida" type="time" name="horario" class="validate">
-               <label for="hora_saida" class="active">Horário Saída</label>
-            </div>                     
-            
+					<form id="form-rota" method="post" action="/gestao-de-projetos/save-rota.php">
+
+						<div class="input-field col s6 m6 l6">
+							<input id="origem" name="origem" type="text" class="validate" >
+							<label for="origem" class="active">Origem</label>
+					    </div>
+
+  						<div class="input-field col s6 m6 l6">
+							<input id="destino" name="destino" type="text" class="validate" >
+							<label for="destino" class="active">Destino</label>
+					    </div>
+
+						<div class="input-field col s6 m6 l6">
+							<input id="data" name="data" type="date" class="validate" >
+							<label for="data" class="active">Data</label>
+					    </div>
+				            
+				        <div class="input-field col s6 m6 l6">
+				            <input id="hora_saida" type="time" name="hora_saida" class="validate">
+				            <label for="hora_saida" class="active">Horário Saída</label>
+				        </div>                     
+
 						<input type="submit" name="submit" id="user-sub" class="fade-input waves-effect waves-light btn">
 
 					</form>		
