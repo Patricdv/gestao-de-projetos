@@ -2,7 +2,7 @@
 	<li class="logo">
 		<a id="logo-container" href="/" class="brand-logo"></a>
 	</li>
-	<li class="bold"><a href="about.html" class="waves-effect waves-teal">Sobre</a></li>
+	<li class="bold"><a href="/gestao-de-projetos/" class="waves-effect waves-teal">Home</a></li>
 	<li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Começando</a></li>
 	<li class="no-padding">
 	  <ul class="collapsible collapsible-accordion">

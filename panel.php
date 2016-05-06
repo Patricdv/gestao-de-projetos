@@ -7,6 +7,7 @@
     $dbPassword = "";
     $timezone   = new DateTimeZone('America/Sao_Paulo');
     $agora		= new DateTime(date("Y-m-d"), $timezone);
+    $agora		= $agora->format("Y-m-d");
 
     $conexao = mysql_connect($dbHostname, $dbUsername, $dbPassword);
     
@@ -16,8 +17,8 @@
       
     //selecionar a base de dados
     mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
-
-    $sql = 'SELECT * FROM carona WHERE data >= "'.$agora["date"].'"';
+    
+    $sql = 'SELECT * FROM carona WHERE data >= "'.$agora.'" ORDER BY data';
       
     $query = mysql_query($sql, $conexao);
 ?>
@@ -44,7 +45,6 @@
 		<main>
 	   		<div class="container">
 				<?php 
-				var_dump($agora);
 				if ($query) { ?>
 					<table class="highlight">
 				    	<thead>
@@ -62,7 +62,7 @@
 								<tr>
 					           		<td><?php echo $carona['caroneiro'];?></td>
 					           		<td><?php echo $carona['vagas'];?></td>
-					           		<td><?php echo $carona['data'];?></td>
+					           		<td><?php echo date('d-m-Y', strtotime($carona['data']));?></td>
 					           		<td><?php echo $carona['saida'];?></td>
 					           		<td><?php echo $carona['origem'];?></td>
 					           		<td><?php echo $carona['destino'];?></td>

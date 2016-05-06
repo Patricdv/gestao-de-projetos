@@ -28,8 +28,14 @@
     display: none;
 }
 
+#align-button {
+	width: 100%;
+	clear: both;
+}
+
 i.fade-input {
-    padding: 15px 20px;
+	padding: 0;
+	height: 47px;
 }
 
 .gender-space {
@@ -39,7 +45,8 @@ i.fade-input {
 }
 
 #user-sub {
-    line-height: 34px;
+    display: inline-block;
+    padding: 15px 30px;
 }
 
 .notification {
