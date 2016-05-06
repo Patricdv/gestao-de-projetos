@@ -1,11 +1,13 @@
 <?php 
 	session_start();
 
-	$dbHostname="localhost";
-    $dbDatabase="dbcaronauffs";
-    $dbUsername="root"; 
-    $dbPassword="";
-    
+	$dbHostname = "localhost";
+    $dbDatabase = "dbcaronauffs";
+    $dbUsername = "root"; 
+    $dbPassword = "";
+    $timezone   = new DateTimeZone('America/Sao_Paulo');
+    $agora		= new DateTime(date("Y-m-d"), $timezone);
+
     $conexao = mysql_connect($dbHostname, $dbUsername, $dbPassword);
     
     if(!$conexao) { 
@@ -15,7 +17,7 @@
     //selecionar a base de dados
     mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
 
-    $sql = 'SELECT * FROM carona';
+    $sql = 'SELECT * FROM carona WHERE data >= "'.$agora["date"].'"';
       
     $query = mysql_query($sql, $conexao);
 ?>
@@ -41,7 +43,9 @@
 		<?php unset($_SESSION['message']); } ?>
 		<main>
 	   		<div class="container">
-				<?php if ($query) { ?>
+				<?php 
+				var_dump($agora);
+				if ($query) { ?>
 					<table class="highlight">
 				    	<thead>
 				    		<tr>

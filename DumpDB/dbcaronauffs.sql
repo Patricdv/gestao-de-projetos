@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Abr-2016 às 02:26
--- Versão do servidor: 10.1.10-MariaDB
--- PHP Version: 5.6.19
+-- Generation Time: 06-Maio-2016 às 04:10
+-- Versão do servidor: 10.1.13-MariaDB
+-- PHP Version: 5.6.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -43,20 +43,12 @@ CREATE TABLE `avaliacao` (
 
 CREATE TABLE `carona` (
   `id` int(11) NOT NULL,
-  `Data` date NOT NULL,
-  `HoraSaida` varchar(10) NOT NULL,
-  `idDestino` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `destino`
---
-
-CREATE TABLE `destino` (
-  `id` int(11) NOT NULL,
-  `Endereco` varchar(100) NOT NULL
+  `caroneiro` int(11) NOT NULL,
+  `vagas` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `saida` varchar(10) NOT NULL,
+  `origem` varchar(255) NOT NULL,
+  `destino` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -67,23 +59,15 @@ CREATE TABLE `destino` (
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
-  `Nome` varchar(80) NOT NULL,
-  `Endereco` varchar(100) NOT NULL,
-  `Tipo` int(11) NOT NULL,
+  `nome` varchar(80) NOT NULL,
+  `endereco` varchar(100) NOT NULL,
+  `tipo` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `idade` int(11) NOT NULL,
   `sexo` tinyint(1) NOT NULL,
   `telefone` varchar(255) DEFAULT NULL,
-  `Senha` varchar(100) NOT NULL
+  `senha` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `usuario`
---
-
-INSERT INTO `usuario` (`id`, `Nome`, `Endereco`, `Tipo`, `email`, `idade`, `sexo`, `telefone`, `Senha`) VALUES
-(1, 'Nome', 'Endereco', 1, 'Email', 11, 0, 'Telefone', 'Senha'),
-(2, 'RogÃ©ri', 'Rua', 0, 'testes@gmeil.com', 12, 0, '9999999', '12');
 
 -- --------------------------------------------------------
 
@@ -93,9 +77,8 @@ INSERT INTO `usuario` (`id`, `Nome`, `Endereco`, `Tipo`, `email`, `idade`, `sexo
 
 CREATE TABLE `vagas` (
   `id` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
   `idCarona` int(11) NOT NULL,
-  `vagas` int(11) NOT NULL
+  `idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -107,20 +90,15 @@ CREATE TABLE `vagas` (
 --
 ALTER TABLE `avaliacao`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `avaliador` (`avaliador`);
+  ADD KEY `avaliador` (`avaliador`),
+  ADD KEY `avaliado` (`avaliado`);
 
 --
 -- Indexes for table `carona`
 --
 ALTER TABLE `carona`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idDestino` (`idDestino`);
-
---
--- Indexes for table `destino`
---
-ALTER TABLE `destino`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `caroneiro` (`caroneiro`);
 
 --
 -- Indexes for table `usuario`
@@ -135,8 +113,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `vagas`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idUsuario` (`idUsuario`),
-  ADD UNIQUE KEY `idCarona` (`idCarona`);
+  ADD KEY `idCarona` (`idCarona`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -151,17 +129,12 @@ ALTER TABLE `avaliacao`
 -- AUTO_INCREMENT for table `carona`
 --
 ALTER TABLE `carona`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `destino`
---
-ALTER TABLE `destino`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `vagas`
 --
@@ -175,13 +148,14 @@ ALTER TABLE `vagas`
 -- Limitadores para a tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`avaliador`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`avaliador`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `avaliacao_ibfk_2` FOREIGN KEY (`avaliado`) REFERENCES `usuario` (`id`);
 
 --
--- Limitadores para a tabela `carona`
+-- Limitadores para a tabela `usuario`
 --
-ALTER TABLE `carona`
-  ADD CONSTRAINT `carona_ibfk_3` FOREIGN KEY (`idDestino`) REFERENCES `destino` (`id`);
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id`) REFERENCES `carona` (`caroneiro`);
 
 --
 -- Limitadores para a tabela `vagas`
