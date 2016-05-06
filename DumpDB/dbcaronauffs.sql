@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06-Maio-2016 às 04:10
--- Versão do servidor: 10.1.13-MariaDB
--- PHP Version: 5.6.20
+-- Generation Time: 07-Maio-2016 às 01:38
+-- Versão do servidor: 10.1.10-MariaDB
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,6 +51,20 @@ CREATE TABLE `carona` (
   `destino` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `carona`
+--
+
+INSERT INTO `carona` (`id`, `caroneiro`, `vagas`, `data`, `saida`, `origem`, `destino`) VALUES
+(6, 10, 2, '2016-05-05', '08:00', 'UFFS', 'Centro'),
+(7, 10, 2, '2016-05-09', '08:00', 'UFFS', 'Centro'),
+(8, 10, 2, '2016-05-10', '08:00', 'Centro', 'UFFS'),
+(9, 10, 2, '2016-05-06', '08:00', 'UFFS', 'Bairro'),
+(10, 10, 2, '2016-05-12', '12:00', 'UFFS', 'Bairro LÃ­der'),
+(11, 10, 2, '2016-05-11', '19:00', 'Bairro Presidente MÃ©dici', 'UFFS'),
+(12, 10, 2, '2016-05-11', '19:00', 'Bairro Presidente MÃ©dici', 'UFFS'),
+(13, 10, 2, '2016-05-10', '19:00', 'Bairro Presidente MÃ©dici', 'UFFS');
+
 -- --------------------------------------------------------
 
 --
@@ -68,6 +82,15 @@ CREATE TABLE `usuario` (
   `telefone` varchar(255) DEFAULT NULL,
   `senha` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nome`, `endereco`, `tipo`, `email`, `idade`, `sexo`, `telefone`, `senha`) VALUES
+(10, 'Rogerio', 'Rua de Casa', 0, 'testes1@gmeil.com', 30, 0, '(99) 9999-9999', '999999'),
+(11, 'Rogerio 2', 'Rua de Casa2', 0, 'testes2@gmeil.com', 32, 0, '(22) 2222-2222', '22222222'),
+(12, 'teste 3', 'testes do teste', 0, 'testes3''@gmeil.com', 88, 1, '(88) 8888-8888', '98989898988');
 
 -- --------------------------------------------------------
 
@@ -129,12 +152,12 @@ ALTER TABLE `avaliacao`
 -- AUTO_INCREMENT for table `carona`
 --
 ALTER TABLE `carona`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `vagas`
 --
@@ -152,10 +175,10 @@ ALTER TABLE `avaliacao`
   ADD CONSTRAINT `avaliacao_ibfk_2` FOREIGN KEY (`avaliado`) REFERENCES `usuario` (`id`);
 
 --
--- Limitadores para a tabela `usuario`
+-- Limitadores para a tabela `carona`
 --
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id`) REFERENCES `carona` (`caroneiro`);
+ALTER TABLE `carona`
+  ADD CONSTRAINT `carona_ibfk_1` FOREIGN KEY (`caroneiro`) REFERENCES `usuario` (`id`);
 
 --
 -- Limitadores para a tabela `vagas`
