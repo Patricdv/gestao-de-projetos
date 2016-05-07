@@ -29,8 +29,6 @@
       
       $result = mysql_query($sql, $conexao);
       
-      echo $result;
-      
       if (!$result) {
         echo mysql_error();
       } else {
