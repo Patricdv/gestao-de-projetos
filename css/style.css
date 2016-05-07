@@ -63,3 +63,26 @@ i.fade-input {
     font-weight: bold;
     font-size: 16px;
 }
+
+#login-page .container {
+	max-width: 500px;
+	text-align: center;
+}
+
+#login-title {
+	margin-top: 30px;
+	font-size: 20px;
+	color: #5FA062;
+	font-weight: bold;
+}
+
+i.login-submit {
+	padding: 0;
+	height: 47px;
+	margin-left: 12px;
+	float: left;
+}
+
+#login-signup {
+	line-height: 48px;
+}
