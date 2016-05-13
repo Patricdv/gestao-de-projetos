@@ -1,11 +1,13 @@
 <?php
     session_start();
   
-    $dbHostname="localhost";
-    $dbDatabase="dbcaronauffs";
-    $dbUsername="root"; 
-    $dbPassword="";
-    
+    $dbHostname = "localhost";
+    $dbDatabase = "dbcaronauffs";
+    $dbUsername = "root"; 
+    $dbPassword = "";
+    $email      = $_POST["email"];
+    $password   = $_POST["senha"];
+
    	if(isset($_POST["submit"])) {
       $conexao = mysql_connect($dbHostname, $dbUsername, $dbPassword);
       
@@ -17,19 +19,20 @@
       mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
         
       //inserir dados da rota
-			$login    = $_POST["email"];
-			$password = $_POST["senha"];
-      
-      $sql = 'SELECT id FROM usuario WHERE email = "'.$login.'" AND senha = "'.$password.'"'; 
+		
+      $sql = 'SELECT id FROM usuario WHERE email = "'.$email.'" AND senha = "'.$password.'" '; 
      
-      $result = mysql_query($sql, $conexao);
-      
-      if (!$result) {
+      $query = mysql_query($sql, $conexao);
+
+      $try = mysql_fetch_assoc($query);
+
+      if (!$try) {
         $_SESSION['message'] = "Usuário ou email inválido!";
-        $_SESSION['email'] = $login;
+        $_SESSION['email'] = $email;
         $_SESSION['senha'] = $password;
         header("location: /gestao-de-projetos/login.php");
       } else {
+        $_SESSION['user-id'] = $result['id'];
         header("location: /gestao-de-projetos/panel.php");
       }
         

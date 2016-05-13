@@ -1,3 +1,7 @@
+<?php 
+  session_start();
+?>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,19 +18,33 @@
 <body id="project">
 	<div class="pattern-position">
 		<?php include 'header.php'; ?>
+    <?php if (isset($_SESSION['message']) && !empty($_SESSION['message'])) { ?>
+      <p class="notification notification-confirm"><?php echo $_SESSION['message'] ?></p>
+    <?php unset($_SESSION['message']); } ?>
+
+    <?php
+      if (isset($_SESSION['email']) && !empty($_SESSION['email'])) {
+        $email = $_SESSION['email'];
+        unset($_SESSION['email']);
+      }
+      if (isset($_SESSION['senha']) && !empty($_SESSION['senha'])) {
+        $senha = $_SESSION['senha'];
+        unset($_SESSION['senha']);
+      }
+    ?>
 
 		<main id="login-page">
 			<div class="container">
         <div class="row">
           <p id="login-title">Use seu E-mail e Senha para se conectar ao sistema:</p>
-					<form id="form-login" method="post" action="/gestao-de-projetos/save-user.php">
+					<form id="form-login" method="post" action="/gestao-de-projetos/try-login.php">
             <div class="input-field col s12">
-               <input id="email" type="email" name="email" class="validate" required>
+               <input id="email" type="email" name="email" class="validate" value="<?php echo ($email) ? $email : ''; ?>" required>
                <label for="email" class="active">E-mail</label>
             </div>
 
             <div class="input-field col s12">
-               <input id="password" type="password" name="senha" minlength=6 class="validate" required>
+               <input id="password" type="password" name="senha" value="<?php echo ($senha) ? $senha : ''; ?>" minlength=6 class="validate" required>
                <label for="password" class="active">Senha</label>
             </div>
 
@@ -36,7 +54,6 @@
 				</div>
 			</div>
 		</main>
-
 		<?php include 'footer.php';?>
 	</div>
 	
