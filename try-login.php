@@ -32,7 +32,7 @@
         $_SESSION['senha'] = $password;
         header("location: /gestao-de-projetos/login.php");
       } else {
-        $_SESSION['user-id'] = $result['id'];
+        $_SESSION['user_id'] = $result['id'];
         header("location: /gestao-de-projetos/panel.php");
       }
         
