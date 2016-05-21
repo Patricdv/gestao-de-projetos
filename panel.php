@@ -18,7 +18,7 @@
     //selecionar a base de dados
     mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
     
-    $sql = 'SELECT * FROM carona WHERE data >= "'.$agora.'" ORDER BY data';
+    $sql = 'SELECT c.id AS id, c.vagas AS vagas, c.data AS data, c.saida AS saida, c.origem AS origem, c.destino AS destino, u.nome AS nome FROM carona AS c JOIN usuario AS u ON c.motorista = u.id WHERE c.data >= "'.$agora.'" ORDER BY data';
       
     $query = mysql_query($sql, $conexao);
 ?>
@@ -49,23 +49,25 @@
 					<table class="highlight">
 				    	<thead>
 				    		<tr>
-				            	<th data-field="caroneiro">Caroneiro</th>
+				            	<th data-field="motorista">Motorista</th>
 				            	<th data-field="vagas">Vagas</th>
 				            	<th data-field="data">Data</th>
 				            	<th data-field="saida">Saída</th>
 				            	<th data-field="origem">Origem</th>
 				            	<th data-field="destino">Destino</th>
+				            	<th></th>
 				        	</tr>
 				        </thead>
 				        <tbody>
 							<?php while($carona =  mysql_fetch_assoc($query)) { ?>
 								<tr>
-					           		<td><?php echo $carona['caroneiro'];?></td>
+					           		<td><a href="/gestao-de-projetos/caroneiro"><?php echo $carona['nome'];?></a></td>
 					           		<td><?php echo $carona['vagas'];?></td>
 					           		<td><?php echo date('d-m-Y', strtotime($carona['data']));?></td>
 					           		<td><?php echo $carona['saida'];?></td>
 					           		<td><?php echo $carona['origem'];?></td>
 					           		<td><?php echo $carona['destino'];?></td>
+					           		<td data-vaga="<?php echo $carona['id']; ?>" class="caronas">Candidatar-se</td>
 					         	</tr>
 					        <?php } ?>  
 			        	</tbody>
@@ -80,5 +82,18 @@
 	</div>
 	<script type="application/javascript" src="/gestao-de-projetos/js/jquery-2.2.2.min.js"></script>
 	<script type="application/javascript" src="/gestao-de-projetos/js/materialize.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".caronas").click(function() {
+				$.getJSON(
+					'candidate.php',
+					{id: $(this).data('vaga')},
+					function(json) {
+						$('.notification').val(json.txtValor); 
+					}
+				);
+			});
+		});
+	</script>script
 </body>
     
