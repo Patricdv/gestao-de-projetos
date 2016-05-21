@@ -21,7 +21,7 @@
 			$horario = $_POST["hora_saida"];
 			$destino = $_POST["destino"];		
       $origem  = $_POST["origem"];
-      $usuario = 2; 
+      $usuario = 11; 
       $vagas   = $_POST["vagas"];
       
       $sql = 'INSERT INTO carona (caroneiro, vagas, data, saida, origem, destino ) 
