@@ -18,7 +18,7 @@
     //selecionar a base de dados
     mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
     
-    $sql = 'SELECT c.id AS id, c.vagas AS vagas, c.data AS data, c.saida AS saida, c.origem AS origem, c.destino AS destino, u.nome AS nome FROM carona AS c JOIN usuario AS u ON c.motorista = u.id WHERE c.data >= "'.$agora.'" ORDER BY data';
+    $sql = 'SELECT c.id AS id, c.vagas AS vagas, c.data AS data, c.saida AS saida, c.origem AS origem, c.destino AS destino, u.nome AS nome FROM carona AS c JOIN usuario AS u ON c.motorista = u.id WHERE c.vagas > 0 AND c.data >= "'.$agora.'" ORDER BY data';
       
     $query = mysql_query($sql, $conexao);
 ?>
@@ -62,12 +62,12 @@
 							<?php while($carona =  mysql_fetch_assoc($query)) { ?>
 								<tr>
 					           		<td><a href="/gestao-de-projetos/caroneiro"><?php echo $carona['nome'];?></a></td>
-					           		<td><?php echo $carona['vagas'];?></td>
+					           		<td class="carona-<?php echo $carona['id']; ?>"><?php echo $carona['vagas'];?></td>
 					           		<td><?php echo date('d-m-Y', strtotime($carona['data']));?></td>
 					           		<td><?php echo $carona['saida'];?></td>
 					           		<td><?php echo $carona['origem'];?></td>
 					           		<td><?php echo $carona['destino'];?></td>
-					           		<td data-vaga="<?php echo $carona['id']; ?>" class="caronas">Candidatar-se</td>
+					           		<td><a href="#" data-vagas="<?php echo $carona['vagas'];?>" data-carona="<?php echo $carona['id']; ?>" class="caronas">Candidatar-se</a></td>
 					         	</tr>
 					        <?php } ?>  
 			        	</tbody>
@@ -84,16 +84,27 @@
 	<script type="application/javascript" src="/gestao-de-projetos/js/materialize.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$(".caronas").click(function() {
+			$(".caronas").click(function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				$(this).addClass('disabled');
 				$.getJSON(
-					'candidate.php',
-					{id: $(this).data('vaga')},
+					'/gestao-de-projetos/candidate.php',
+					{carona: $(this).data('carona')},
 					function(json) {
-						$('.notification').val(json.txtValor); 
+						$('body').append('<p class="notification notification-confirm">'+json.text+'</p>'); 
+					}
+				);
+				
+				$.getJSON(
+					'/gestao-de-projetos/update-vaga.php',
+					{carona:$(this).data('carona'), vagas:$(this).data('vagas')},
+					function(json) {
+						$('.carona-'+json.carona).html(json.vagas);
 					}
 				);
 			});
 		});
-	</script>script
+	</script>
 </body>
     

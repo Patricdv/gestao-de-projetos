@@ -1,5 +1,5 @@
 <?php
-  function registraCarona ($carona) {
+  function updateVaga($vagas, $carona) {
     session_start();
 
     $dbHostname="localhost";
@@ -16,25 +16,20 @@
     //selecionar a base de dados
     mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
 
-    //inserir dados da vaga
-    $usuario = 2;
+    $vagas--;
 
-    $sql = 'INSERT INTO vagas (idCarona, idUsuario) VALUES ("'.$carona.'", "'.$usuario.'")';
+    $sql = "UPDATE carona SET vagas = ".$vagas." WHERE id = ".$carona.""; 
     
     $result = mysql_query($sql, $conexao);
 
     mysql_close($conexao);
 
-    if ($result) {
-      $validation['text'] = 'Cadastrado com sucesso!';
-      return json_encode($validation);
-    }
-
-    $validation['text'] = 'Ocorreu um problema no cadastro, tente novamente mais tarde!';
+    $validation['vagas'] = $vagas;
+    $validation['carona'] = $carona;
     return json_encode($validation);
   }
 
-  if (isset($_GET['carona'])) {
-    echo registraCarona($_GET['carona']);
+  if (isset($_GET['vagas']) && isset($_GET['carona'])) {
+    echo updateVaga($_GET['vagas'], $_GET['carona']);
   }
 ?>
