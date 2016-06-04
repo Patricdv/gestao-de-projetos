@@ -20,7 +20,7 @@
         
       //inserir dados da rota
 		
-      $sql = 'SELECT id FROM usuario WHERE email = "'.$email.'" AND senha = "'.$password.'" '; 
+      $sql = 'SELECT id, tipo FROM usuario WHERE email = "'.$email.'" AND senha = "'.$password.'" '; 
      
       $query = mysql_query($sql, $conexao);
 
@@ -32,7 +32,8 @@
         $_SESSION['senha'] = $password;
         header("location: /gestao-de-projetos/login.php");
       } else {
-        $_SESSION['user_id'] = $result['id'];
+        $_SESSION['user_id']   = $try['id'];
+        $_SESSION['user_tipo'] = $try['tipo'];
         header("location: /gestao-de-projetos/panel.php");
       }
         

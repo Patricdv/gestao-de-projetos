@@ -17,7 +17,7 @@
     mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
 
     //inserir dados da vaga
-    $usuario = 2;
+    $usuario = $_SESSION['user_id'];
 
     $sql = 'INSERT INTO vagas (idCarona, idUsuario) VALUES ("'.$carona.'", "'.$usuario.'")';
     

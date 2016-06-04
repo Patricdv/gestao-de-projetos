@@ -96,8 +96,6 @@
 					}
 				);
 				
-				$(this).html('');
-
 				$.getJSON(
 					'/gestao-de-projetos/update-vaga.php',
 					{carona:$(this).data('carona'), vagas:$(this).data('vagas')},
