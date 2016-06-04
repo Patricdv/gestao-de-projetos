@@ -17,24 +17,24 @@
       mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
         
       //inserir dados de caroneiro - tipo 0
-			$Nome     = $_POST["nome"];
-			$Endereco = $_POST["endereco"];
-			$Tipo     = (int) $_POST["tipo"];
-			$Email    = $_POST["email"];
-			$Idade    = (int) $_POST["idade"];
-			$Sexo     = (int) $_POST["sexo"];
-			$Telefone = $_POST["telefone"];
-			$Senha    = $_POST["senha"];
+			$nome     = $_POST["nome"];
+			$endereco = $_POST["endereco"];
+			$tipo     = (int) $_POST["tipo"];
+			$email    = $_POST["email"];
+			$idade    = (int) $_POST["idade"];
+			$sexo     = (int) $_POST["sexo"];
+			$telefone = $_POST["telefone"];
+			$senha    = $_POST["senha"];
       
-      $sql = 'INSERT INTO usuario (nome, endereco, tipo, email, idade, sexo, telefone, senha) VALUES ("'.$Nome.'", "'.$Endereco.'", "'.$Tipo.'", "'.$Email.'", "'.$Idade.'", "'.$Sexo.'", "'.$Telefone.'", "'.$Senha.'")';
+      $sql = 'INSERT INTO usuario (nome, endereco, tipo, email, idade, sexo, telefone, senha) VALUES ("'.$nome.'", "'.$endereco.'", "'.$tipo.'", "'.$email.'", "'.$idade.'", "'.$sexo.'", "'.$telefone.'", "'.$senha.'")';
       
       $result = mysql_query($sql, $conexao);
-      
+
       if (!$result) {
         echo mysql_error();
       } else {
         $_SESSION['message'] = "Usuário cadastrado com sucesso";
-        header("location: /gestao-de-projetos/panel.php");
+        header("location: /gestao-de-projetos/login.php");
       }
         
       mysql_close($conexao);
