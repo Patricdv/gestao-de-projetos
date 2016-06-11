@@ -67,7 +67,7 @@
 					           		<td><?php echo $carona['saida'];?></td>
 					           		<td><?php echo $carona['origem'];?></td>
 					           		<td><?php echo $carona['destino'];?></td>
-					           		<td><a href="#" data-vagas="<?php echo $carona['vagas'];?>" data-carona="<?php echo $carona['id']; ?>" class="caronas">Candidatar-se</a></td>
+					           		<td><a href="/gestao-de-projetos/perfil.php?id=<?php echo $carona['id']; ?>" data-vagas="<?php echo $carona['vagas'];?>" data-carona="<?php echo $carona['id']; ?>" class="caronas">Candidatar-se</a></td>
 					         	</tr>
 					        <?php } ?>  
 			        	</tbody>

@@ -17,11 +17,14 @@
       
     //selecionar a base de dados
     mysql_select_db($dbDatabase ) or die("nao foi possivel seleciona a base de dados");
+
+    $sql = 'SELECT id, vagas, data, saida, origem, destino
+    		FROM carona
+    		WHERE motorista = "'.$_SESSION['user_id'].'"
+    		ORDER BY id';
     
-    $sql = 'SELECT c.id AS id, c.vagas AS vagas, c.data AS data, c.saida AS saida, c.origem AS origem, c.destino AS destino, u.nome AS nome FROM carona AS c JOIN usuario AS u ON c.motorista = u.id WHERE c.vagas > 0 AND c.data >= "'.$agora.'" ORDER BY data';
-      
     $query = mysql_query($sql, $conexao);
-?>
+    ?>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,35 +48,23 @@
 		<main>
 	   		<div class="container">
 				<?php 
-				if ($query) { ?>
-					<table class="highlight">
-				    	<thead>
-				    		<tr>
-				            	<th data-field="motorista">Motorista</th>
-				            	<th data-field="vagas">Vagas</th>
-				            	<th data-field="data">Data</th>
-				            	<th data-field="saida">Saída</th>
-				            	<th data-field="origem">Origem</th>
-				            	<th data-field="destino">Destino</th>
-				            	<th></th>
-				        	</tr>
-				        </thead>
-				        <tbody>
-							<?php while($carona =  mysql_fetch_assoc($query)) { ?>
-								<tr>
-					           		<td><a href="/gestao-de-projetos/caroneiro"><?php echo $carona['nome'];?></a></td>
-					           		<td class="carona-<?php echo $carona['id']; ?>"><?php echo $carona['vagas'];?></td>
-					           		<td><?php echo date('d-m-Y', strtotime($carona['data']));?></td>
-					           		<td><?php echo $carona['saida'];?></td>
-					           		<td><?php echo $carona['origem'];?></td>
-					           		<td><?php echo $carona['destino'];?></td>
-					           		<td><a href="#" data-vagas="<?php echo $carona['vagas'];?>" data-carona="<?php echo $carona['id']; ?>" class="caronas">Candidatar-se</a></td>
-					         	</tr>
-					        <?php } ?>  
-			        	</tbody>
-			      	</table>
-		      	<?php } else { ?>
-		      		<p>Nenhuma carona disponível!</p>	
+				if ($query) {
+					while($carona = mysql_fetch_assoc($query)) { ?>
+						<div>
+							<p class="caronas-title"><?php echo $carona['data'].'  /  '.$carona['saida']; ?></p>
+							<?php 
+							$sql = 'SELECT u.id AS id, u.nome AS nome 
+    								FROM carona AS c 
+    								JOIN (vagas AS v JOIN usuario AS u) 
+    								WHERE c.id = "'.$carona['id'].'"';
+    						$query2 = mysql_query($sql, $conexao);
+    						while($users = mysql_fetch_assoc($query2)) { ?>
+    							<a class='caronas-table' href='/gestao-de-projetos/perfil.php?id=<?php echo $users['id'];?>'><?php echo $users['nome']; ?></a>
+    						<?php }	?>
+						</div>
+					<?php } 
+				} else { ?>
+		      		<p>Você não disponibilizou nenhuma carona!</p>	
 		      	<?php } ?>
 	      	</div>
 		</main>
@@ -82,29 +73,9 @@
 	</div>
 	<script type="application/javascript" src="/gestao-de-projetos/js/jquery-2.2.2.min.js"></script>
 	<script type="application/javascript" src="/gestao-de-projetos/js/materialize.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".caronas").click(function(e) {
-				e.preventDefault();
-				e.stopPropagation();
-				$(this).addClass('disabled');
-				$.getJSON(
-					'/gestao-de-projetos/candidate.php',
-					{carona: $(this).data('carona')},
-					function(json) {
-						$('body').append('<p class="notification notification-confirm">'+json.text+'</p>'); 
-					}
-				);
-				
-				$.getJSON(
-					'/gestao-de-projetos/update-vaga.php',
-					{carona:$(this).data('carona'), vagas:$(this).data('vagas')},
-					function(json) {
-						$('.carona-'+json.carona).html(json.vagas);
-					}
-				);
-			});
+	<script type="application/javascript">
+	    $(document).ready(function(){ 	 
 		});
-	</script>
+  	</script>
 </body>
     

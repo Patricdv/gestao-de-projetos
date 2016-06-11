@@ -79,7 +79,12 @@
 
 		<?php include 'footer.php';?>
 	</div>
+
 	<script type="application/javascript" src="/gestao-de-projetos/js/jquery-2.2.2.min.js"></script>
 	<script type="application/javascript" src="/gestao-de-projetos/js/materialize.min.js"></script>
+	<script type="application/javascript">
+	    $(document).ready(function(){ 	 
+		});
+  	</script>
 </body>
     

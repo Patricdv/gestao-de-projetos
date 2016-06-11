@@ -86,3 +86,28 @@ i.login-submit {
 #login-signup {
 	line-height: 48px;
 }
+
+.caronas-title {
+	display: block;
+	width: 100%;
+	background-color: #81c784;
+	font-weight: bold;
+	color: #ffffff;
+	padding: 10px 15px;
+}
+
+.caronas-table {
+	display: block;
+	width: 100%;
+	padding: 10px 5px;
+	border-bottom: solid 1px #ccc;
+	font-style: italic;
+}
+
+#form-perfil {
+	margin-top: 30px;
+}
+
+#form-submit {
+	display: none;
+}
